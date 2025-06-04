@@ -44,8 +44,8 @@ class ApiRetriverUpdated{
     async Retriver(pk){
         // API responsável por buscar os dados do objeto 
         try{
-            const response = await axios.get(`http://localhost:8000/products/${pk}/`)
-            return {data: response.data, status: 200}
+            const response = await axios.get(`http://localhost:8000/product/detail/${pk}/`)
+            return {data: response.data.detail, categories: response.data.categories, status: 200}
         }catch(error){
             console.log(error)
             return {error: 'Houve um error no servidor, tente novamente.', status: 500}

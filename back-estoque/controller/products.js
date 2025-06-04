@@ -45,6 +45,17 @@ class ProductsMethods {
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
         }
     }
+
+    async getDetail(req, res){
+        try{
+            const detail = await db.select().where({id: req.params.id}).first().table('products_product')
+            const category = await db.select().table('products_category')
+            res.status(200).json({status: true, detail: detail, categories: category, code: 200})
+        }catch(err){
+            console.log(err)
+            res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
+        }
+    }
 }
 
 export default new ProductsMethods()

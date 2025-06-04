@@ -5,7 +5,6 @@ class ApiGetList{
     async getProducts(){
         try{
             const response = await axios.get('http://localhost:8000/products')
-            // console.log(response)
             return response.data
         }catch(err){
             console.log(err)

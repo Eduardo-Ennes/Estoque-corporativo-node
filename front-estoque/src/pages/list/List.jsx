@@ -44,14 +44,14 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     ApiGetCategories()
   }, [])
 
-  // const handleSubmitUpdate = (event, id) => {
-  //   // Função que quando acionada passa o ID de um produto como parametro para a função onSelectId(id), que servepara selecionar um produto para atualização ou deleção 
-  //   try{
-  //     onSelectId(id)
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-  // }
+  const handleSubmitUpdate = (event, id) => {
+    // Função que quando acionada passa o ID de um produto como parametro para a função onSelectId(id), que servepara selecionar um produto para atualização ou deleção 
+    try{
+      onSelectId(id)
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   const handleDelete = async (event, id) => {
     // Função que quando acionada irá deletar um produto
@@ -63,7 +63,6 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
         return;
       }
       const response = await axios.delete(`http://localhost:8000/products/${id}/`)
-      console.log(response.data)
       alert(response.data.message)
       ReloadListDelete() // Ativa a função para reload da lista
     }catch(error){
@@ -153,7 +152,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
                     {/* {product.category?.name || 'Sem categoria'} -> Para corrigir um erro, o componente estava tentando renderizar antes de os dados chegarem. Se for undefined será: Sem categoria */}
                     <td>{product.stock_quantity}</td>
                     <td className='td-position-button'>
-                      <button>&#128221;</button>
+                      <button onClick={(e) => handleSubmitUpdate(e, product.id)}>&#128221;</button>
                       <button type='button' onClick={(event) => {handleDelete(event, product.id)}}>&#10060;</button>
                       <button type='button'>&#128722;</button>
                     </td>

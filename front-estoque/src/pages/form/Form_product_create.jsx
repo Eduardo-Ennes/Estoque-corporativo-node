@@ -21,7 +21,6 @@ function Form_product_create({onClearId}) {
     const GetCategories = async () => {
       try{
           const response = await axios.get('http://localhost:8000/categories/')
-          console.log(response.data.data)
           setCategories(response.data.data)
       }catch(error){
           console.log(error)
@@ -37,7 +36,6 @@ function Form_product_create({onClearId}) {
       event.preventDefault()
       console.log(FormCreate)
       const response = await ApiCreate.Create(FormCreate)
-      console.log(response)
       if(response.error){
         alert(response.error.error)
         return;

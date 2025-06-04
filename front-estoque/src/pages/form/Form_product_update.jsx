@@ -1,9 +1,8 @@
-import {React, useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import ApiUpdated from './ApiUdateOrRetriver'
 import "../../app.css"
 
 function Form_product_update({selectedId, onClearId}) {
-
   const [Categorys, setCategorys] = useState([])
   // Categories -> esta variável conterá os dados vindos da API para serem exibidos.
   const [Product, setProduct] = useState({
@@ -29,39 +28,40 @@ function Form_product_update({selectedId, onClearId}) {
   Explicação quando chamamos o método: ApiPutAndPatchUpdated
   */
 
-  // useEffect(() => {
-  //   const RetriverApi = async (pk) => {
-  //     if(pk !== null && Number.isInteger(pk) && pk !== undefined){
-  //       const response = await ApiUpdated.Retriver(pk)
-  //       if(response.status === 200){
-  //         setProductApi({
-  //           'name': response.data.product.name,
-  //           'price': response.data.product.price,
-  //           'promotion': response.data.product.promotion,
-  //           'price_promotion': response.data.product.price_promotion,
-  //           'stock_quantity': response.data.product.stock_quantity,
-  //           'category_id': response.data.product.category.id,
-  //         })
-  //         setProduct({
-  //           'name': response.data.product.name,
-  //           'price': response.data.product.price,
-  //           'promotion': response.data.product.promotion,
-  //           'price_promotion': response.data.product.price_promotion,
-  //           'stock_quantity': response.data.product.stock_quantity,
-  //           'category_id': response.data.product.category.id,
-  //         })
-  //         setCategorys(response.data.categorys)
-  //       }
-  //     }
-  //   }
+  useEffect(() => {
+    const RetriverApi = async (pk) => {
+      if(pk !== null && Number.isInteger(pk) && pk !== undefined){
+        const response = await ApiUpdated.Retriver(pk)
+        console.log(response.categories)
+        if(response.status === 200){
+          setProductApi({
+            'name': response.data.name,
+            'price': response.data.price,
+            'promotion': response.data.promotion,
+            'price_promotion': response.data.price_promotion,
+            'stock_quantity': response.data.stock_quantity,
+            'category_id': response.data.category_id,
+          })
+          setProduct({
+            'name': response.data.name,
+            'price': response.data.price,
+            'promotion': response.data.promotion,
+            'price_promotion': response.data.price_promotion,
+            'stock_quantity': response.data.stock_quantity,
+            'category_id': response.data.category_id,
+          })
+          setCategorys(response.categories)
+        }
+      }
+    }
   
-  //   RetriverApi(selectedId)
-  // }, [selectedId])
+    RetriverApi(selectedId)
+  }, [selectedId])
   
 
   const handleSubmitUpdated = async (event) => {
     try{
-      event.preventdefault()
+      event.preventDefault()
     }catch(err){
       console.log(err)
     }
@@ -91,7 +91,7 @@ function Form_product_update({selectedId, onClearId}) {
             <input
             type="text"
             name="name"
-            value={Product.name}
+            value={Product.name || 'Nada'}
             onChange={(e) => setProduct({...Product, name: e.target.value})}/>
 
             <input
@@ -131,7 +131,7 @@ function Form_product_update({selectedId, onClearId}) {
               <select 
               value={Product.category_id}
               onChange={(e) => setProduct({...Product, category_id: Number.parseFloat(e.target.value)})}
-              >
+              > 
                 {Categorys.map(category => (
                   <option key={category.id} value={category.id}>{category.name}</option>
                 ))} 
