@@ -55,12 +55,14 @@ class ApiRetriverUpdated{
     async PutUpdate(id, form_updated){
         // API do method Put
         try{
-            const response = await axios.put(`http://localhost:8000/products/${id}/`, form_updated)
-            return response
+            const response = await axios.put(`http://localhost:8000/product/${id}/`, form_updated)
+            return {status: response.data.status, message: response.data.message}
         }catch(error){
+            console.log('----------------------')
+            console.log(error.response.data.status)
             return {
-                error: error.response.data,
-                status: error.response.status
+                status: error.response.data.status,
+                error: error.response.data.error
             };
         }
     }

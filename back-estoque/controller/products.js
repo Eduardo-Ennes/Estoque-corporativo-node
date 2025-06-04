@@ -1,5 +1,6 @@
 import db from '../config/database.js'
 import method from '../method/validation.js'
+import methodPut from '../validations/validationPut.js'
 
 
 class ProductsMethods {
@@ -51,6 +52,32 @@ class ProductsMethods {
             const detail = await db.select().where({id: req.params.id}).first().table('products_product')
             const category = await db.select().table('products_category')
             res.status(200).json({status: true, detail: detail, categories: category, code: 200})
+        }catch(err){
+            console.log(err)
+            res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
+        }
+    }
+
+    async put(req, res){
+        try{
+            const info = {
+                'id': req.params.id,               
+                'name': req.body.name,
+                'price': req.body.price,
+                'promotion': req.body.promotion,
+                'price_promotion': req.body.price_promotion,
+                'stock_quantity': req.body.stock_quantity,
+                'category_id': req.body.category_id,
+            }
+            console.log(info)
+            const validation = await methodPut.validation(info)
+            console.log(validation)
+            if (validation.status){
+                res.status(validation.code).json({status: validation.status, message: validation.message})
+            }else{
+                res.status(validation.code).json({status: validation.status, error: validation.error})
+            }
+            
         }catch(err){
             console.log(err)
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})

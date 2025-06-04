@@ -32,7 +32,6 @@ function Form_product_update({selectedId, onClearId}) {
     const RetriverApi = async (pk) => {
       if(pk !== null && Number.isInteger(pk) && pk !== undefined){
         const response = await ApiUpdated.Retriver(pk)
-        console.log(response.categories)
         if(response.status === 200){
           setProductApi({
             'name': response.data.name,
@@ -62,26 +61,18 @@ function Form_product_update({selectedId, onClearId}) {
   const handleSubmitUpdated = async (event) => {
     try{
       event.preventDefault()
-    }catch(err){
-      console.log(err)
+      const response = await ApiUpdated.ApiPutAndPatchUpdated(ProductApi, Product, selectedId)
+      // Consultar ApiPutAndPatchUpdated para melhor entendimento
+      console.log(response)
+      if (response.status == false){
+        alert(response.error)
+        return;
+      }
+      alert(response.message) 
+      onClearId() // Ativa a função para reload da lista
+    }catch(error){
+      console.log(error)
     }
-    // try{
-    //   event.preventDefault()
-    //   const response = await ApiUpdated.ApiPutAndPatchUpdated(ProductApi, Product, selectedId)
-    //   // Consultar ApiPutAndPatchUpdated para melhor entendimento
-    //   if(response.error){
-    //     if(response.error){
-    //       for(const campo in response.error){
-    //         alert(`${response.error[campo][0]}`)
-    //         break;
-    //       }
-    //     }
-    //   }
-    //   alert(response.data.message) 
-    //   onClearId() // Ativa a função para reload da lista
-    // }catch(error){
-    //   console.log(error)
-    // }
   }
 
   return (

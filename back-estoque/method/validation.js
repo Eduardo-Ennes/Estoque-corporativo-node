@@ -2,7 +2,6 @@ import bd from '../config/database.js'
 
 class validationInfoProducts{
     async Form(form){
-        console.log(form)
         const validation = await this.ValidationFields(form)
             if(validation.status){
                 const save = await this.SaveBd(form)
@@ -18,7 +17,6 @@ class validationInfoProducts{
         }
 
     async ValidationFields(form){
-        console.log(form.name.length)
         if(form.name.length > 75 || form.name.length <= 0){
             return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}
         }
@@ -27,6 +25,9 @@ class validationInfoProducts{
             }
         if(form.stock_quantity < 0){
             return{status: false, error: 'O número de estoque não pode ser menor que 0.'}
+        }
+        if(form.price_promotion < 0){
+            return{status: false, error: 'O preço promocional deve ser maior ou igual a 0.'}
         }
         if(form.promotion){
             if(form.price_promotion >= form.price){

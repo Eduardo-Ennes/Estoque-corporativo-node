@@ -4,10 +4,14 @@ const router = express.Router()
 import ProductsMethods from '../controller/products.js'
 import CategoriesMethods from '../controller/categories.js'
 
+// ProductsMethods
 router.get('/products', ProductsMethods.get)
-router.get('/categories', CategoriesMethods.get)
 router.post('/products',ProductsMethods.post)
 router.delete('/products/:id', ProductsMethods.delete)
 router.get('/product/detail/:id', ProductsMethods.getDetail)
+router.put('/product/:id', ProductsMethods.put)
+
+// CategoriesMethods
+router.get('/categories', CategoriesMethods.get)
 
 export default router
