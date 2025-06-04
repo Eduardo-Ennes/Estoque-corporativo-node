@@ -53,22 +53,23 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
   //   }
   // }
 
-  // const handleDelete = async (event, id) => {
-  //   // Função que quando acionada irá deletar um produto
-  //   try{
-  //     event.preventDefault()
-  //     const confirmation = confirm("Tem certeza que deseja excluir este produto?")
-  //     // confirm -> É uma mensagem de confirmação, uso como forma de segurança antes de o usuário deletar um objeto de forma definitiva, pode ser muito útil caso o usuário tenha clicado em deletar de forma acidental.
-  //     if(confirmation === false){
-  //       return;
-  //     }
-  //     const response = await axios.delete(`http://localhost:8000/products/${id}/`)
-  //     alert(response.data.message)
-  //     ReloadListDelete() // Ativa a função para reload da lista
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
+  const handleDelete = async (event, id) => {
+    // Função que quando acionada irá deletar um produto
+    try{
+      event.preventDefault()
+      const confirmation = confirm("Tem certeza que deseja excluir este produto?")
+      // confirm -> É uma mensagem de confirmação, uso como forma de segurança antes de o usuário deletar um objeto de forma definitiva, pode ser muito útil caso o usuário tenha clicado em deletar de forma acidental.
+      if(confirmation === false){
+        return;
+      }
+      const response = await axios.delete(`http://localhost:8000/products/${id}/`)
+      console.log(response.data)
+      alert(response.data.message)
+      ReloadListDelete() // Ativa a função para reload da lista
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   // const handleCard = async (event, pk, qtd=1) => {
   //   // Função para adicionar um item aocarrinho
@@ -153,7 +154,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
                     <td>{product.stock_quantity}</td>
                     <td className='td-position-button'>
                       <button>&#128221;</button>
-                      <button type='button'>&#10060;</button>
+                      <button type='button' onClick={(event) => {handleDelete(event, product.id)}}>&#10060;</button>
                       <button type='button'>&#128722;</button>
                     </td>
                 </tr>

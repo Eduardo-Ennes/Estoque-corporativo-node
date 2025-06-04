@@ -31,9 +31,19 @@ class ProductsMethods {
                 res.status(validation.code).json({status: validation.status, error: validation.error})
             }
         }catch(err){
-          console.log(err)
+            console.log(err)
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
         }  
+    }
+
+    async delete(req, res){
+        try{
+            await db.delete().where({id: req.params.id}).table('products_product')
+            res.status(200).json({status: true, message: 'Produto deletado com sucesso', code: 200})
+        }catch(err){
+            console.log(err)
+            res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
+        }
     }
 }
 
