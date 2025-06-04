@@ -5,10 +5,7 @@ class validationPutFields{
     async validation(form){
         try {
             const fields = await methodValidantionFieldsPost.ValidationFields(form)
-            console.log('FIELDS')
-            console.log(fields)
             if(fields.status){
-                console.log('SALVAR BD')
                 try {
                     const updated = await db.update({              
                         name: form.name,

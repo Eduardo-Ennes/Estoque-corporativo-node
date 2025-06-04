@@ -70,13 +70,13 @@ class ApiRetriverUpdated{
     async PatchUpdate(id, form_updated){
         // API do method Patch
         try{
-            const response = await axios.patch(`http://localhost:8000/products/${id}/`, form_updated)
-            return response
+            const response = await axios.patch(`http://localhost:8000/product/${id}/`, form_updated)
+            return{status: true, message: response.data.message}
         }catch(error){
             if(error.response){
                 return {
-                    error: error.response.data,
-                    status: error.response.status
+                    status: error.response.data.status,
+                    error: error.response.data.error
                 };
             }
             console.log(error)
@@ -103,7 +103,7 @@ class ApiRetriverUpdated{
         // Em breve irei trazer uma melhor explicação 
         const object_partial_fields = {}
         for(const key in form_updated){
-            if(form_updated['promotion'] === true){
+            if(form_updated['promotion'] == true){
                 if(form_updated[key] === form_api['promotion']){
                     object_partial_fields[key] = form_api[key]
                 }

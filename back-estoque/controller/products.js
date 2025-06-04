@@ -1,6 +1,7 @@
 import db from '../config/database.js'
 import method from '../method/validation.js'
 import methodPut from '../validations/validationPut.js'
+import methodPatch from '../validations/products/validationPatch.js'
 
 
 class ProductsMethods {
@@ -69,15 +70,35 @@ class ProductsMethods {
                 'stock_quantity': req.body.stock_quantity,
                 'category_id': req.body.category_id,
             }
-            console.log(info)
             const validation = await methodPut.validation(info)
-            console.log(validation)
             if (validation.status){
                 res.status(validation.code).json({status: validation.status, message: validation.message})
             }else{
                 res.status(validation.code).json({status: validation.status, error: validation.error})
             }
             
+        }catch(err){
+            console.log(err)
+            res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
+        }
+    }
+
+    async patch(req, res){
+        try{
+            const fields = ['name', 'price', 'promotion', 'price_promotion', 'stock_quantity', 'category_id'];
+            const info = { id: req.params.id };
+
+            for(const field of fields){
+                if(field in req.body){
+                    info[field] = req.body[field]
+                }
+            }
+            const validation = await methodPatch.validation(info)
+            if (validation.status){
+                res.status(validation.code).json({status: validation.status, message: validation.message})
+            }else{
+                res.status(validation.code).json({status: validation.status, error: validation.error})
+            }
         }catch(err){
             console.log(err)
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})

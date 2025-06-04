@@ -17,27 +17,41 @@ class validationInfoProducts{
         }
 
     async ValidationFields(form){
-        if(form.name.length > 75 || form.name.length <= 0){
-            return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}
+        console.log(form)
+        if('name' in form){
+            if(form.name.length > 75 || form.name.length <= 0){
+                return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}
+            }
         }
-        if(form.price <= 0){
+        
+        if('price' in form){
+            if(form.price <= 0){
                 return{status: false, error: 'O preço deve ser maior que 0.'}
             }
-        if(form.stock_quantity < 0){
-            return{status: false, error: 'O número de estoque não pode ser menor que 0.'}
         }
-        if(form.price_promotion < 0){
-            return{status: false, error: 'O preço promocional deve ser maior ou igual a 0.'}
-        }
-        if(form.promotion){
-            if(form.price_promotion >= form.price){
-                return{status: false, error: 'O preço promocional deve ser menor que o preço de mercado.'}
-            }
-            if(form.price_promotion <= 0){
-                return{status: false, error: 'O preço promocional deve ser maior que 0.'}
+        
+        if('stock_quantity' in form){
+            if(form.stock_quantity < 0){
+                return{status: false, error: 'O número de estoque não pode ser menor que 0.'}
             }
         }
-
+        
+        if('price_promotion' in form){
+            if(form.price_promotion < 0){
+                return{status: false, error: 'O preço promocional deve ser maior ou igual a 0.'}
+            }
+        }
+        
+        if('promotion' in form){
+            if(form.promotion){
+                if(form.price_promotion >= form.price){
+                    return{status: false, error: 'O preço promocional deve ser menor que o preço de mercado.'}
+                }
+                if(form.price_promotion <= 0){
+                    return{status: false, error: 'O preço promocional deve ser maior que 0.'}
+                }
+            }
+        }
         return {status: true}
     }
 
