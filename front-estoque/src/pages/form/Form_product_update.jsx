@@ -29,54 +29,59 @@ function Form_product_update({selectedId, onClearId}) {
   Explicação quando chamamos o método: ApiPutAndPatchUpdated
   */
 
-  useEffect(() => {
-    const RetriverApi = async (pk) => {
-      if(pk !== null && Number.isInteger(pk) && pk !== undefined){
-        const response = await ApiUpdated.Retriver(pk)
-        if(response.status === 200){
-          setProductApi({
-            'name': response.data.product.name,
-            'price': response.data.product.price,
-            'promotion': response.data.product.promotion,
-            'price_promotion': response.data.product.price_promotion,
-            'stock_quantity': response.data.product.stock_quantity,
-            'category_id': response.data.product.category.id,
-          })
-          setProduct({
-            'name': response.data.product.name,
-            'price': response.data.product.price,
-            'promotion': response.data.product.promotion,
-            'price_promotion': response.data.product.price_promotion,
-            'stock_quantity': response.data.product.stock_quantity,
-            'category_id': response.data.product.category.id,
-          })
-          setCategorys(response.data.categorys)
-        }
-      }
-    }
+  // useEffect(() => {
+  //   const RetriverApi = async (pk) => {
+  //     if(pk !== null && Number.isInteger(pk) && pk !== undefined){
+  //       const response = await ApiUpdated.Retriver(pk)
+  //       if(response.status === 200){
+  //         setProductApi({
+  //           'name': response.data.product.name,
+  //           'price': response.data.product.price,
+  //           'promotion': response.data.product.promotion,
+  //           'price_promotion': response.data.product.price_promotion,
+  //           'stock_quantity': response.data.product.stock_quantity,
+  //           'category_id': response.data.product.category.id,
+  //         })
+  //         setProduct({
+  //           'name': response.data.product.name,
+  //           'price': response.data.product.price,
+  //           'promotion': response.data.product.promotion,
+  //           'price_promotion': response.data.product.price_promotion,
+  //           'stock_quantity': response.data.product.stock_quantity,
+  //           'category_id': response.data.product.category.id,
+  //         })
+  //         setCategorys(response.data.categorys)
+  //       }
+  //     }
+  //   }
   
-    RetriverApi(selectedId)
-  }, [selectedId])
+  //   RetriverApi(selectedId)
+  // }, [selectedId])
   
 
   const handleSubmitUpdated = async (event) => {
     try{
-      event.preventDefault()
-      const response = await ApiUpdated.ApiPutAndPatchUpdated(ProductApi, Product, selectedId)
-      // Consultar ApiPutAndPatchUpdated para melhor entendimento
-      if(response.error){
-        if(response.error){
-          for(const campo in response.error){
-            alert(`${response.error[campo][0]}`)
-            break;
-          }
-        }
-      }
-      alert(response.data.message) 
-      onClearId() // Ativa a função para reload da lista
-    }catch(error){
-      console.log(error)
+      event.preventdefault()
+    }catch(err){
+      console.log(err)
     }
+    // try{
+    //   event.preventDefault()
+    //   const response = await ApiUpdated.ApiPutAndPatchUpdated(ProductApi, Product, selectedId)
+    //   // Consultar ApiPutAndPatchUpdated para melhor entendimento
+    //   if(response.error){
+    //     if(response.error){
+    //       for(const campo in response.error){
+    //         alert(`${response.error[campo][0]}`)
+    //         break;
+    //       }
+    //     }
+    //   }
+    //   alert(response.data.message) 
+    //   onClearId() // Ativa a função para reload da lista
+    // }catch(error){
+    //   console.log(error)
+    // }
   }
 
   return (

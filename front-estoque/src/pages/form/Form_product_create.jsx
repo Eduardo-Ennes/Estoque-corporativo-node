@@ -16,42 +16,43 @@ function Form_product_create({onClearId}) {
   })
   // FormCreate -> Esté objeto será usado para salvar os dados que o cliente digitou nos respctivos imputs.
 
-  useEffect(() => {
-    // API que buscas os campos das categorias 
-    const GetCategories = async () => {
-      try{
-          const response = await axios.get('http://localhost:8000/returncategories/')
-          setCategories(response.data.categories)
-      }catch(error){
-          console.log(error)
-          return{message: 'Houve um error no servidor, tente novamente.', code: 500}
-      }
-  }
+  // useEffect(() => {
+  //   // API que buscas os campos das categorias 
+  //   const GetCategories = async () => {
+  //     try{
+  //         const response = await axios.get('http://localhost:8000/returncategories/')
+  //         setCategories(response.data.categories)
+  //     }catch(error){
+  //         console.log(error)
+  //         return{message: 'Houve um error no servidor, tente novamente.', code: 500}
+  //     }
+  // }
 
-  GetCategories()
-  }, [])
+  // GetCategories()
+  // }, [])
 
   const handleSubmit = async (event) => {
     try{
       event.preventDefault() 
-      const response = await ApiCreate.Create(FormCreate)
-      // Consultar Create para melhor entendimento
-      if(response.error){
-        for(const campo in response.error){
-          alert(`${response.error[campo][0]}`)
-          return;
-        }
-      }
-      alert('Produto cadastrado com sucesso!')
-      onClearId() // Ativa a função para reload da lista
-      setFormCreate({
-        'name': '',
-        'price': 0,
-        'promotion': false,
-        'price_promotion': 0,
-        'stock_quantity': 0,
-        'category_id': 1,
-      })
+      console.log('ok')
+      // const response = await ApiCreate.Create(FormCreate)
+      // // Consultar Create para melhor entendimento
+      // if(response.error){
+      //   for(const campo in response.error){
+      //     alert(`${response.error[campo][0]}`)
+      //     return;
+      //   }
+      // }
+      // alert('Produto cadastrado com sucesso!')
+      // onClearId() // Ativa a função para reload da lista
+      // setFormCreate({
+      //   'name': '',
+      //   'price': 0,
+      //   'promotion': false,
+      //   'price_promotion': 0,
+      //   'stock_quantity': 0,
+      //   'category_id': 1,
+      // })
       // Para que os imputs fiquem vazios novamente
     }catch(error){
       console.log(error)

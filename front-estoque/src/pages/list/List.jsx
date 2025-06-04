@@ -22,7 +22,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
       // API que busca todos os produtos 
       try{
         const response = await ApiGet.getProducts()
-        setProducts(response)
+        setProducts(response.data)
         changeReloadList()
       }catch(err){
         console.log(err)
@@ -35,8 +35,8 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     const ApiGetCategories = async () => {
       // API que busca todas as categorias
       try{
-        const response = await axios.get('http://localhost:8000/returncategories/')
-        setCategories(response.data.categories)
+        const response = await axios.get('http://localhost:8000/categories/')
+        setCategories(response.data.data)
       }catch(err){
         console.log(err)
       }
@@ -44,58 +44,58 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     ApiGetCategories()
   }, [])
 
-  const handleSubmitUpdate = (event, id) => {
-    // Função que quando acionada passa o ID de um produto como parametro para a função onSelectId(id), que servepara selecionar um produto para atualização ou deleção 
-    try{
-      onSelectId(id)
-    }catch(err){
-      console.log(err)
-    }
-  }
+  // const handleSubmitUpdate = (event, id) => {
+  //   // Função que quando acionada passa o ID de um produto como parametro para a função onSelectId(id), que servepara selecionar um produto para atualização ou deleção 
+  //   try{
+  //     onSelectId(id)
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // }
 
-  const handleDelete = async (event, id) => {
-    // Função que quando acionada irá deletar um produto
-    try{
-      event.preventDefault()
-      const confirmation = confirm("Tem certeza que deseja excluir este produto?")
-      // confirm -> É uma mensagem de confirmação, uso como forma de segurança antes de o usuário deletar um objeto de forma definitiva, pode ser muito útil caso o usuário tenha clicado em deletar de forma acidental.
-      if(confirmation === false){
-        return;
-      }
-      const response = await axios.delete(`http://localhost:8000/products/${id}/`)
-      alert(response.data.message)
-      ReloadListDelete() // Ativa a função para reload da lista
-    }catch(error){
-      console.log(error)
-    }
-  }
+  // const handleDelete = async (event, id) => {
+  //   // Função que quando acionada irá deletar um produto
+  //   try{
+  //     event.preventDefault()
+  //     const confirmation = confirm("Tem certeza que deseja excluir este produto?")
+  //     // confirm -> É uma mensagem de confirmação, uso como forma de segurança antes de o usuário deletar um objeto de forma definitiva, pode ser muito útil caso o usuário tenha clicado em deletar de forma acidental.
+  //     if(confirmation === false){
+  //       return;
+  //     }
+  //     const response = await axios.delete(`http://localhost:8000/products/${id}/`)
+  //     alert(response.data.message)
+  //     ReloadListDelete() // Ativa a função para reload da lista
+  //   }catch(error){
+  //     console.log(error)
+  //   }
+  // }
 
-  const handleCard = async (event, pk, qtd=1) => {
-    // Função para adicionar um item aocarrinho
-    try{
-      event.preventDefault()
-      const response = await ApiCard.AddCard(pk, qtd)
-      console.log(response)
-      OnReloadCard() // Ativa a função para reload do card
-    }catch(error){
-      console.log(error)
-    }
-  } 
+  // const handleCard = async (event, pk, qtd=1) => {
+  //   // Função para adicionar um item aocarrinho
+  //   try{
+  //     event.preventDefault()
+  //     const response = await ApiCard.AddCard(pk, qtd)
+  //     console.log(response)
+  //     OnReloadCard() // Ativa a função para reload do card
+  //   }catch(error){
+  //     console.log(error)
+  //   }
+  // } 
 
-  const handleSearch = async(event, id, name) => {
-    // API utilizada para retornar o resultado do SEARCH
-    try{
-      event.preventDefault()
-      if(name === '' || name === ' '){
-        alert('O campo de busca não pode ser enviado em branco!')
-        return;
-      }
-      const response = await axios.get(`http://localhost:8000/search/${id}/${name}/`)
-      setProducts(response.data)
-    }catch(error){
-      console.log(error)
-    }
-  }
+  // const handleSearch = async(event, id, name) => {
+  //   // API utilizada para retornar o resultado do SEARCH
+  //   try{
+  //     event.preventDefault()
+  //     if(name === '' || name === ' '){
+  //       alert('O campo de busca não pode ser enviado em branco!')
+  //       return;
+  //     }
+  //     const response = await axios.get(`http://localhost:8000/search/${id}/${name}/`)
+  //     setProducts(response.data)
+  //   }catch(error){
+  //     console.log(error)
+  //   }
+  // }
 
   return (
     <>
@@ -148,12 +148,13 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
                     <td>R${product.price}</td>
                     <td className='td-position-promotion'>{product.promotion? 'Sim' : 'Não'}</td> 
                     <td>R${product.price_promotion}</td>
-                    <td>{product.category.name}</td>
+                    <td>{product.category?.name || 'Sem categoria'}</td>
+                    {/* {product.category?.name || 'Sem categoria'} -> Para corrigir um erro, o componente estava tentando renderizar antes de os dados chegarem. Se for undefined será: Sem categoria */}
                     <td>{product.stock_quantity}</td>
                     <td className='td-position-button'>
-                      <button onClick={(e) => handleSubmitUpdate(e, product.id)}>&#128221;</button>
-                      <button type='button' onClick={(e) => handleDelete(e, product.id)}>&#10060;</button>
-                      <button type='button' onClick={(e) => handleCard(e, product.id)}>&#128722;</button>
+                      <button>&#128221;</button>
+                      <button type='button'>&#10060;</button>
+                      <button type='button'>&#128722;</button>
                     </td>
                 </tr>
               ))}

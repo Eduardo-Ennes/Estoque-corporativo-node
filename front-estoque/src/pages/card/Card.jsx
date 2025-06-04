@@ -13,42 +13,42 @@ function Card({ChangeReloadCard, OnReloadCard, Reloadcard}) {
   Price = Preço total 
   */
 
-  useEffect(() => {
-    const GetCard = async() => {
-      const card_storage = localStorage.getItem('card')
-      const price_storage = localStorage.getItem('price')
-      if(card_storage != null && price_storage != null){
-        const card = JSON.parse(card_storage)
-        const price = JSON.parse(price_storage)
-        setCard(card)
-        setPrice(price['price'])
-        await ChangeReloadCard()
-      }
-    }
-    GetCard()
-  }, [Reloadcard])
+  // useEffect(() => {
+  //   const GetCard = async() => {
+  //     const card_storage = localStorage.getItem('card')
+  //     const price_storage = localStorage.getItem('price')
+  //     if(card_storage != null && price_storage != null){
+  //       const card = JSON.parse(card_storage)
+  //       const price = JSON.parse(price_storage)
+  //       setCard(card)
+  //       setPrice(price['price'])
+  //       await ChangeReloadCard()
+  //     }
+  //   }
+  //   GetCard()
+  // }, [Reloadcard])
 
-  const handleCard = async (event, pk, qtd=1) => {
-    // Função para adicionar um item ao carrinho
-      try{
-        event.preventDefault()
-        const response = await ApiCard.AddCard(pk)
-        OnReloadCard()
-      }catch(error){
-        console.log(error)
-      }
-    } 
+  // const handleCard = async (event, pk, qtd=1) => {
+  //   // Função para adicionar um item ao carrinho
+  //     try{
+  //       event.preventDefault()
+  //       const response = await ApiCard.AddCard(pk)
+  //       OnReloadCard()
+  //     }catch(error){
+  //       console.log(error)
+  //     }
+  //   } 
 
-  const handleLowerCard = async (event, pk) => {
-    // Função para diminuir ou deletar um item do carrinho
-    try{
-      event.preventDefault()
-      const response = await ApiLowercard.LowerCard(pk)
-      OnReloadCard()
-    }catch(error){
-      console.log(error)
-    }
-  }
+  // const handleLowerCard = async (event, pk) => {
+  //   // Função para diminuir ou deletar um item do carrinho
+  //   try{
+  //     event.preventDefault()
+  //     const response = await ApiLowercard.LowerCard(pk)
+  //     OnReloadCard()
+  //   }catch(error){
+  //     console.log(error)
+  //   }
+  // }
 
 
   return (
