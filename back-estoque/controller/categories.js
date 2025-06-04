@@ -4,7 +4,6 @@ class CategoriesMethod{
     async get(req, res){
         try{
             const data = await db.select().table('products_category')
-            console.log(data)
             res.status(200).json({"data": data, code: 200})
         }catch(err){
             console.log(err)

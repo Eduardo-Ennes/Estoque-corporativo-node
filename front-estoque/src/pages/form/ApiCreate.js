@@ -15,6 +15,10 @@ class CreateForm{
             }
         }
     }
+
+    async VerifyType(form){
+        
+    }
 }
 
 export default new CreateForm()
