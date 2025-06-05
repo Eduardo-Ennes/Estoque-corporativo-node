@@ -3,6 +3,7 @@ const router = express.Router()
 
 import ProductsMethods from '../controller/products.js'
 import CategoriesMethods from '../controller/categories.js'
+import CardMethods from '../controller/card.js'
 
 // ProductsMethods
 router.get('/products', ProductsMethods.get)
@@ -14,5 +15,8 @@ router.patch('/product/:id', ProductsMethods.patch)
 
 // CategoriesMethods
 router.get('/categories', CategoriesMethods.get)
+
+// CardMethods
+router.put('/card/:id/:qtd', CardMethods.put)
 
 export default router

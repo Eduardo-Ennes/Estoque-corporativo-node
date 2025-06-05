@@ -14,9 +14,12 @@ class OperationAddCard{
                 const price = await JSON.parse(storage_price)
                 // JSON.parse -> método para converter strings para JSON
                 const data = [card, price]
-                const response = await axios.put(`http://localhost:8000/card/${pk}/${qtd}/`, data)
+                console.log('CHEGOU AQUI')
+                const response = await axios.put(`http://localhost:8000/card/${pk}/${qtd}`, data)
+                console.log(response.data.card)
+                console.log(response.data.price['price'])
                 // Usei o PUT, porque me meu entendimento o card já está criado, apenas irei altera-lo adicionando, atualizand ou deletando dados
-                const response_set_storage = await this.set_Local_Storage(response.data[0], response.data[1]['price'], )
+                const response_set_storage = await this.set_Local_Storage(response.data.card, response.data.price['price'])
                 return response_set_storage.message
             }else{
                 return{message: 'Houve um error ao criar no LocalStorage!'}

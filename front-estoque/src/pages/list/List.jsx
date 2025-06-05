@@ -44,6 +44,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     ApiGetCategories()
   }, [])
 
+
   const handleSubmitUpdate = (event, id) => {
     // Função que quando acionada passa o ID de um produto como parametro para a função onSelectId(id), que servepara selecionar um produto para atualização ou deleção 
     try{
@@ -52,6 +53,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
       console.log(err)
     }
   }
+
 
   const handleDelete = async (event, id) => {
     // Função que quando acionada irá deletar um produto
@@ -70,17 +72,16 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     }
   }
 
-  // const handleCard = async (event, pk, qtd=1) => {
-  //   // Função para adicionar um item aocarrinho
-  //   try{
-  //     event.preventDefault()
-  //     const response = await ApiCard.AddCard(pk, qtd)
-  //     console.log(response)
-  //     OnReloadCard() // Ativa a função para reload do card
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // } 
+  const handleCard = async (event, pk, qtd=1) => {
+    // Função para adicionar um item aocarrinho
+    try{
+      event.preventDefault()
+      const response = await ApiCard.AddCard(pk, qtd)
+      OnReloadCard() // Ativa a função para reload do card
+    }catch(error){
+      console.log(error)
+    }
+  } 
 
   // const handleSearch = async(event, id, name) => {
   //   // API utilizada para retornar o resultado do SEARCH
@@ -148,13 +149,12 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
                     <td>R${product.price}</td>
                     <td className='td-position-promotion'>{product.promotion? 'Sim' : 'Não'}</td> 
                     <td>R${product.price_promotion}</td>
-                    <td>{product.category?.name || 'Sem categoria'}</td>
-                    {/* {product.category?.name || 'Sem categoria'} -> Para corrigir um erro, o componente estava tentando renderizar antes de os dados chegarem. Se for undefined será: Sem categoria */}
+                    <td>{product.category_id}</td>
                     <td>{product.stock_quantity}</td>
                     <td className='td-position-button'>
                       <button onClick={(e) => handleSubmitUpdate(e, product.id)}>&#128221;</button>
                       <button type='button' onClick={(event) => {handleDelete(event, product.id)}}>&#10060;</button>
-                      <button type='button'>&#128722;</button>
+                      <button type='button' onClick={(event) => handleCard(event, product.id, 1)}>&#128722;</button>
                     </td>
                 </tr>
               ))}
