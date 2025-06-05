@@ -12,7 +12,7 @@ class OperationLowerCard{
                 const price = await JSON.parse(storage_price)
                 // JSON.parse -> método para converter strings para JSON
                 const data = [card, price]
-                const response = await axios.put(`http://localhost:8000/lowerproduct/${pk}`, data)
+                const response = await axios.put(`http://localhost:8000/lowerproduct/${pk}`, data, {withCredentials: true})
                 // console.log(response.data.card)
                 // console.log(response.data.price['price'])
                 const response_set_storage = await this.set_Lower_Local_Storage(response.data.card, response.data.price['price'])

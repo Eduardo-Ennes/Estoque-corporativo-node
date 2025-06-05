@@ -5,7 +5,7 @@ class CreateForm{
     async Create(form){
         try{
             // Preferencialmente, sempre enviar formulários através do corpo da requisição para uma maior segurança
-            const response = await axios.post('http://localhost:8000/products/', form)
+            const response = await axios.post('http://localhost:8000/products/', form, {withCredentials: true})
             return response.data
         }catch(error){
             console.log(error)

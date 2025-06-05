@@ -2,15 +2,24 @@ import db from '../config/database.js'
 import method from '../method/validation.js'
 import methodPut from '../validations/validationPut.js'
 import methodPatch from '../validations/products/validationPatch.js'
+import jwt from 'jsonwebtoken'
 
 
 class ProductsMethods {
     async get(req, res){
-        try{    
+        try {
+            if(!req.cookies.token){
+                const token = jwt.sign({ autorizacao: true }, process.env.SECRET_KEY)
+                res.cookie('token', token, {
+                    httpOnly: true,       // ⚠️ essencial: o JS do navegador não consegue ler esse cookie
+                    secure: false,     // ⚠️ só será enviado via HTTPS
+                    sameSite: 'lax' | 'none',   // ⚠️ só aceita cookies da mesma origem
+                    })
+            }
             const data = await db.select().table('products_product')
             res.status(200).json({"data": data, code: 200})
-        }catch(err){
-            console.log(err)
+        } catch (error) {
+            console.log(error)
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
         }
     }

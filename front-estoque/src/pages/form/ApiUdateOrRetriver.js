@@ -44,7 +44,7 @@ class ApiRetriverUpdated{
     async Retriver(pk){
         // API responsável por buscar os dados do objeto 
         try{
-            const response = await axios.get(`http://localhost:8000/product/detail/${pk}/`)
+            const response = await axios.get(`http://localhost:8000/product/detail/${pk}/`, {withCredentials: true})
             return {data: response.data.detail, categories: response.data.categories, status: 200}
         }catch(error){
             console.log(error)
@@ -55,7 +55,7 @@ class ApiRetriverUpdated{
     async PutUpdate(id, form_updated){
         // API do method Put
         try{
-            const response = await axios.put(`http://localhost:8000/product/${id}/`, form_updated)
+            const response = await axios.put(`http://localhost:8000/product/${id}/`, form_updated, {withCredentials: true})
             return {status: response.data.status, message: response.data.message}
         }catch(error){
             console.log('----------------------')
@@ -70,7 +70,7 @@ class ApiRetriverUpdated{
     async PatchUpdate(id, form_updated){
         // API do method Patch
         try{
-            const response = await axios.patch(`http://localhost:8000/product/${id}/`, form_updated)
+            const response = await axios.patch(`http://localhost:8000/product/${id}/`, form_updated, {withCredentials: true})
             return{status: true, message: response.data.message}
         }catch(error){
             if(error.response){

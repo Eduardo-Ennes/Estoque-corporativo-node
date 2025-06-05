@@ -15,7 +15,7 @@ class OperationAddCard{
                 // JSON.parse -> método para converter strings para JSON
                 const data = [card, price]
                 console.log('CHEGOU AQUI')
-                const response = await axios.put(`http://localhost:8000/card/${pk}/${qtd}`, data)
+                const response = await axios.put(`http://localhost:8000/card/${pk}/${qtd}`, data, {withCredentials: true})
                 console.log(response.data.card)
                 console.log(response.data.price['price'])
                 // Usei o PUT, porque me meu entendimento o card já está criado, apenas irei altera-lo adicionando, atualizand ou deletando dados

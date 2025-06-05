@@ -35,7 +35,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     const ApiGetCategories = async () => {
       // API que busca todas as categorias
       try{
-        const response = await axios.get('http://localhost:8000/categories/')
+        const response = await axios.get('http://localhost:8000/categories/', {withCredentials: true})
         setCategories(response.data.data)
       }catch(err){
         console.log(err)
@@ -64,7 +64,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
       if(confirmation === false){
         return;
       }
-      const response = await axios.delete(`http://localhost:8000/products/${id}/`)
+      const response = await axios.delete(`http://localhost:8000/products/${id}/`,{withCredentials: true})
       alert(response.data.message)
       ReloadListDelete() // Ativa a função para reload da lista
     }catch(error){
@@ -88,7 +88,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     try{
       event.preventDefault()
       var nameparam = name.trim() === '' ? 'null': name.trim()
-      const response = await axios.get(`http://localhost:8000/search/product/${id}/${nameparam}`)
+      const response = await axios.get(`http://localhost:8000/search/product/${id}/${nameparam}`, {withCredentials: true})
       setProducts(response.data['data'])
     }catch(error){
       console.log(error)

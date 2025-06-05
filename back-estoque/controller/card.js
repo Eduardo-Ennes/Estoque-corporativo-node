@@ -26,7 +26,6 @@ class cardMethods{
         const id = req.params.id
         try{
             const validation = await methodCard.excludeProduct(id, card, value)
-            console.log(validation.data)
             if(validation.status){
                 res.status(200).json({status: true, card: validation.data[0], price: validation.data[1]})
             }else{

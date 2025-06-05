@@ -4,7 +4,6 @@ class searchMethod{
     async get(req, res){
         const id = req.params.id
         const name = req.params.name
-        console.log(name)
         try {
             if(id == 0 && name == 'null'){
                 const obj = await db.select().table('products_product')
@@ -12,7 +11,6 @@ class searchMethod{
                 return;
             }
             if(id != 0 && name != 'null'){
-                console.log('1')
                 const obj = await db('products_product')
                 .where({category_id: id})
                 .andWhere('name', 'like', `%${name}%`)
@@ -20,13 +18,11 @@ class searchMethod{
                 return;
             }
             if(id != 0){
-                console.log('2')
                 const obj = await db('products_product').where({category_id: id})
                 res.status(200).json({data: obj})
                 return;
             }
             if(name != 'null'){
-                console.log('3')
                 const obj = await db('products_product').where('name', 'like', `%${name}%`)
                 res.status(200).json({data: obj})
                 return;
