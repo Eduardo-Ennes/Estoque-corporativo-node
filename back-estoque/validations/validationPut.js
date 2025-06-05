@@ -21,14 +21,14 @@ class validationPutFields{
                     }
                     return {status: true, message: 'Produto atualizado com sucesso.', code: 200}
                 } catch (error) {
-                    console.log(err)
+                    console.log(error)
                     return {status: false, error: 'Houve um error no servidor. Tente novamente.', code: 500}
                 }
             }else{
                 return{status: fields.status, error: fields.error, code: 400}
             }
         } catch (error) {
-            console.log(err)
+            console.log(error)
             return {status: false, error: 'Houve um error no servidor. Tente novamente.', code: 500}
         }
     }

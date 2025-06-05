@@ -47,6 +47,34 @@ class operationsCard{
             return{status: false, error: 'Houve um erro no servidor. Tente novamente.', code: 500}
         }
     }
+
+    async excludeProduct(id, card, value){
+        var incard = card.find(product => product.id == id)
+        if(incard){
+            if(incard.quantity == 1){
+                var new_card = card.filter(product => product.id != id)
+                if(incard.promotion){
+                    value.price -= incard['price_promotion']
+                    return{status: true, data: [new_card, value]}
+                }else{
+                    value.price -= incard['price']
+                    return{status: true, data: [new_card, value]}
+                }
+            }else{
+                if(incard.promotion){
+                    value.price -= incard['price_promotion']
+                    incard['quantity'] -= 1
+                    return{status: true, data: [card, value]} 
+                }else{
+                    value.price -= incard['price']
+                    incard['quantity'] -= 1
+                    return{status: true, data: [card, value]}
+                }
+            }
+        }else{
+            return{status: false, error: 'Produto não encontrado no carrinho.'}
+        }
+    }
 }
 
 export default new operationsCard()

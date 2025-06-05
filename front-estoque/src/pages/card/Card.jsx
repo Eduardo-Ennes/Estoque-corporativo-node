@@ -39,16 +39,16 @@ function Card({ChangeReloadCard, OnReloadCard, Reloadcard}) {
   //     }
   //   } 
 
-  // const handleLowerCard = async (event, pk) => {
-  //   // Função para diminuir ou deletar um item do carrinho
-  //   try{
-  //     event.preventDefault()
-  //     const response = await ApiLowercard.LowerCard(pk)
-  //     OnReloadCard()
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
+  const handleLowerCard = async (event, pk) => {
+    // Função para diminuir ou deletar um item do carrinho
+    try{
+      event.preventDefault()
+      const response = await ApiLowercard.LowerCard(pk)
+      OnReloadCard()
+    }catch(error){
+      console.log(error)
+    }
+  }
 
 
   return (

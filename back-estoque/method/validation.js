@@ -17,7 +17,6 @@ class validationInfoProducts{
         }
 
     async ValidationFields(form){
-        console.log(form)
         if('name' in form){
             if(form.name.length > 75 || form.name.length <= 0){
                 return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}

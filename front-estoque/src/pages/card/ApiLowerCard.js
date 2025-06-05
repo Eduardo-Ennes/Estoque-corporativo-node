@@ -12,8 +12,10 @@ class OperationLowerCard{
                 const price = await JSON.parse(storage_price)
                 // JSON.parse -> método para converter strings para JSON
                 const data = [card, price]
-                const response = await axios.put(`http://localhost:8000/lowerproduct/${pk}/`, data)
-                const response_set_storage = await this.set_Lower_Local_Storage(response.data[0], response.data[1], )
+                const response = await axios.put(`http://localhost:8000/lowerproduct/${pk}`, data)
+                // console.log(response.data.card)
+                // console.log(response.data.price['price'])
+                const response_set_storage = await this.set_Lower_Local_Storage(response.data.card, response.data.price['price'])
                 return response_set_storage.message
             }else{
                 return{message: 'Houve um error ao criar no LocalStorage!'}
@@ -26,7 +28,7 @@ class OperationLowerCard{
     async set_Lower_Local_Storage(card, price){
         // Se todos os produtos forem deletados do carrinho, a variável card será uma lista vazia "[]", Este será o valor que será atualizado para a variável no LocalStorage e o price consequentemente igual a 0
         localStorage.setItem('card', JSON.stringify(card))
-        localStorage.setItem('price', JSON.stringify(price))
+        localStorage.setItem('price', JSON.stringify({'price': price}))
         // localStorage.setItem -> serve tanto para criar ou atualizar uma variável no LocalStorage
         return{message: 'ok'}
     }

@@ -26,7 +26,6 @@ class ProductsMethods {
                 'category_id': req.body.category_id,
             }
             const validation = await method.Form(info)
-            console.log(validation)
             if(validation.status){
                 res.status(validation.code).json({status: validation.status, message: validation.message})
             }else{

@@ -18,5 +18,6 @@ router.get('/categories', CategoriesMethods.get)
 
 // CardMethods
 router.put('/card/:id/:qtd', CardMethods.put)
+router.put('/lowerproduct/:id', CardMethods.delete)
 
 export default router
