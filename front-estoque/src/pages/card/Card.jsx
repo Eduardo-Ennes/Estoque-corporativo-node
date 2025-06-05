@@ -28,16 +28,16 @@ function Card({ChangeReloadCard, OnReloadCard, Reloadcard}) {
     GetCard()
   }, [Reloadcard])
 
-  // const handleCard = async (event, pk, qtd=1) => {
-  //   // Função para adicionar um item ao carrinho
-  //     try{
-  //       event.preventDefault()
-  //       const response = await ApiCard.AddCard(pk)
-  //       OnReloadCard()
-  //     }catch(error){
-  //       console.log(error)
-  //     }
-  //   } 
+  const handleCard = async (event, pk, qtd=1) => {
+    // Função para adicionar um item ao carrinho com o simbolo "+"
+      try{
+        event.preventDefault()
+        const response = await ApiCard.AddCard(pk)
+        OnReloadCard()
+      }catch(error){
+        console.log(error)
+      }
+    } 
 
   const handleLowerCard = async (event, pk) => {
     // Função para diminuir ou deletar um item do carrinho
