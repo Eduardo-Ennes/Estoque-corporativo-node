@@ -147,7 +147,11 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
                     <td>R${product.price}</td>
                     <td className='td-position-promotion'>{product.promotion? 'Sim' : 'Não'}</td> 
                     <td>R${product.price_promotion}</td>
-                    <td>{product.category_id}</td>
+                    <td>
+                      {
+                        Categories.find(cat => cat.id === product.category_id)?.name || 'Sem categoria'
+                      }
+                    </td>
                     <td>{product.stock_quantity}</td>
                     <td className='td-position-button'>
                       <button onClick={(e) => handleSubmitUpdate(e, product.id)}>&#128221;</button>
