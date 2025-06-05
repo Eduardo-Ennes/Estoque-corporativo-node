@@ -83,20 +83,17 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
     }
   } 
 
-  // const handleSearch = async(event, id, name) => {
-  //   // API utilizada para retornar o resultado do SEARCH
-  //   try{
-  //     event.preventDefault()
-  //     if(name === '' || name === ' '){
-  //       alert('O campo de busca não pode ser enviado em branco!')
-  //       return;
-  //     }
-  //     const response = await axios.get(`http://localhost:8000/search/${id}/${name}/`)
-  //     setProducts(response.data)
-  //   }catch(error){
-  //     console.log(error)
-  //   }
-  // }
+  const handleSearch = async(event, id, name) => {
+    // API utilizada para retornar o resultado do SEARCH
+    try{
+      event.preventDefault()
+      var nameparam = name.trim() === '' ? 'null': name.trim()
+      const response = await axios.get(`http://localhost:8000/search/product/${id}/${nameparam}`)
+      setProducts(response.data['data'])
+    }catch(error){
+      console.log(error)
+    }
+  }
 
   return (
     <>
@@ -106,6 +103,7 @@ function List({onSelectId, ReloadList, changeReloadList, ReloadListDelete, OnRel
         className='select'
         value={IdCategory}
         onChange={(e) => (setIdCategory(e.target.value))}>
+            <option value={0}>-------- Categoria --------</option>
           {Categories.map(categories => (
             <option key={categories.id} value={categories.id}>{categories.name}</option>
           ))}

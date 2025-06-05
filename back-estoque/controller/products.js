@@ -52,8 +52,8 @@ class ProductsMethods {
             const detail = await db.select().where({id: req.params.id}).first().table('products_product')
             const category = await db.select().table('products_category')
             res.status(200).json({status: true, detail: detail, categories: category, code: 200})
-        }catch(err){
-            console.log(err)
+        }catch(error){
+            console.log(error)
             res.status(500).json({status: false, err: 'Houve um erro no servidor. Tente novamente.', code: 500})
         }
     }
