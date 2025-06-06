@@ -95,6 +95,7 @@ SECRET_KEY='Digite_Algo_Complexo'
 ```
 
 ℹ️ Os campos com os nomes DATABASE são as credenciais para se conectar ao MySql. 
+
 ℹ️ SECRET_KEY  é uma chave secreta que o back-end usa para proteger as requisições, como ao gerar tokens de autenticação (JWT). Ela garante que só o seu servidor consiga criar e validar esses tokens, funcionando como uma senha mestra invisível ao usuário.
 
 5°: Iniciar o projeto
