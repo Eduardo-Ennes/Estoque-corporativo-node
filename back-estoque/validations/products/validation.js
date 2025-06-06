@@ -1,11 +1,10 @@
-import bd from '../config/database.js'
+import bd from '../../config/database.js'
 
 class validationInfoProducts{
     async Form(form){
         const validation = await this.ValidationFields(form)
             if(validation.status){
                 const save = await this.SaveBd(form)
-                console.log(save)
                 if(save.status){
                     return{status: save.status, message: save.message, code: 200}
                 }else{

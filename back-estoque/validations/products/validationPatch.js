@@ -1,5 +1,5 @@
 import db from '../../config/database.js'
-import methodValidantionFieldsPost from '../../method/validation.js'
+import methodValidantionFieldsPost from './validation.js'
 
 class validationPatchFields{
     async validation(form){

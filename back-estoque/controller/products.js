@@ -1,6 +1,6 @@
 import db from '../config/database.js'
-import method from '../method/validation.js'
-import methodPut from '../validations/validationPut.js'
+import method from '../validations/products/validation.js'
+import methodPut from '../validations/products/validationPut.js'
 import methodPatch from '../validations/products/validationPatch.js'
 import jwt from 'jsonwebtoken'
 
@@ -16,7 +16,7 @@ class ProductsMethods {
                     sameSite: 'lax' | 'none',   // ⚠️ só aceita cookies da mesma origem
                     })
             }
-            const data = await db.select().table('products_product')
+            const data = await db.select().table('products_product').orderBy('id', 'desc')
             res.status(200).json({"data": data, code: 200})
         } catch (error) {
             console.log(error)
