@@ -17,27 +17,25 @@ class validationInfoProducts{
 
     async ValidationFields(form){
         if('name' in form){
-            if(form.name.length > 75 || form.name.length <= 0){
-                return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}
-            }
+            if(form.name.length > 75 || form.name.length <= 0) return{status: false, error: 'O nome não pode ser vazio e deve conter no máximo 75 caracteres.'}
         }
         
         if('price' in form){
-            if(form.price <= 0){
-                return{status: false, error: 'O preço deve ser maior que 0.'}
-            }
+            if(isNaN(Number(form.price))) return{status: false, error: 'O preço deve ser um campo numérico.'}
+
+            if(form.price <= 0) return{status: false, error: 'O preço deve ser maior que 0.'}
         }
         
         if('stock_quantity' in form){
-            if(form.stock_quantity < 0){
-                return{status: false, error: 'O número de estoque não pode ser menor que 0.'}
-            }
+            if(isNaN(Number(form.stock_quantity))) return{status: false, error: 'O número de estoque deve ser um campo númerico.'}
+
+            if(form.stock_quantity < 0) return{status: false, error: 'O número de estoque não pode ser menor que 0.'}
         }
         
         if('price_promotion' in form){
-            if(form.price_promotion < 0){
-                return{status: false, error: 'O preço promocional deve ser maior ou igual a 0.'}
-            }
+            if(isNaN(Number(form.price_promotion))) return{status: false, error: 'O preço promocional deve ser um campo numérico.'}
+
+            if(form.price_promotion < 0) return{status: false, error: 'O preço promocional deve ser maior ou igual a 0.'}
         }
         
         if('promotion' in form){
